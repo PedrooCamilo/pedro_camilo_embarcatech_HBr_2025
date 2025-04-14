@@ -3,7 +3,7 @@ Curso Embarcatech fase 2
 
 Tarefa Contador decrescente com registro de eventos por interrupção
 
-Para executar o código da tarefa, abra a pasta assets e compile o código .c, em seguida na pasta build arraste seu arquivo .uf2 para dentro da BitDogLab em modo Bootsel.
+Para executar o código da tarefa, abra a pasta src e compile o código .c, em seguida na pasta build arraste seu arquivo .uf2 para dentro da BitDogLab em modo Bootsel.
 
 Requisitos da Tarefa
 

@@ -28,36 +28,40 @@ set(PICO_BOARD pico_w CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(leitura_joystick C CXX ASM)
+project(temperature_unity C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(leitura_joystick leitura_joystick.c )
+add_executable(temperature_unity 
+src/temp_convert.c 
+test/test_temp_convert.c 
+lib/unity/src/unity.c 
+)
 
-pico_set_program_name(leitura_joystick "leitura_joystick")
-pico_set_program_version(leitura_joystick "0.1")
-
-# Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(leitura_joystick 0)
-pico_enable_stdio_usb(leitura_joystick 0)
+pico_set_program_name(temperature_unity "temperature_unity")
+pico_set_program_version(temperature_unity "0.1")
 
 # Add the standard library to the build
-target_link_libraries(leitura_joystick
+target_link_libraries(temperature_unity
         hardware_adc
         pico_stdlib)
 
 # Add the standard include files to the build
-target_include_directories(leitura_joystick PRIVATE
-        ${CMAKE_CURRENT_LIST_DIR}
+target_include_directories(temperature_unity PRIVATE
+        ${CMAKE_CURRENT_LIST_DIR}/include
+        lib/unity/src 
 )
 
+pico_enable_stdio_usb(temperature_unity 0)
+pico_enable_stdio_usb(temperature_unity 1)
+
 # Add any user requested libraries
-target_link_libraries(leitura_joystick 
-        hardware_i2c
+target_link_libraries(temperature_unity 
+        
         )
 
-pico_add_extra_outputs(leitura_joystick)
+pico_add_extra_outputs(temperature_unity)
 

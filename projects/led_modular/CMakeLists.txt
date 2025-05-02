@@ -28,36 +28,41 @@ set(PICO_BOARD pico_w CACHE STRING "Board type")
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(leitura_joystick C CXX ASM)
+project(led_embutido C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(leitura_joystick leitura_joystick.c )
+add_executable(led_embutido 
+    app/main.c 
+    drivers/led_embutido.c
+    hal/hal_led.c
+    )
 
-pico_set_program_name(leitura_joystick "leitura_joystick")
-pico_set_program_version(leitura_joystick "0.1")
+pico_set_program_name(led_embutido "led_embutido")
+pico_set_program_version(led_embutido "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(leitura_joystick 0)
-pico_enable_stdio_usb(leitura_joystick 0)
+pico_enable_stdio_uart(led_embutido 0)
+pico_enable_stdio_usb(led_embutido 0)
 
 # Add the standard library to the build
-target_link_libraries(leitura_joystick
-        hardware_adc
-        pico_stdlib)
+target_link_libraries(led_embutido
+        pico_stdlib
+        pico_cyw43_arch_none
+        )
 
 # Add the standard include files to the build
-target_include_directories(leitura_joystick PRIVATE
-        ${CMAKE_CURRENT_LIST_DIR}
+target_include_directories(led_embutido PRIVATE 
+        include
 )
 
 # Add any user requested libraries
-target_link_libraries(leitura_joystick 
-        hardware_i2c
+target_link_libraries(led_embutido 
+        
         )
 
-pico_add_extra_outputs(leitura_joystick)
+pico_add_extra_outputs(led_embutido)
 
